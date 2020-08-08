@@ -1,0 +1,7 @@
+{
+  "name": "info-programmer-api",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "forteshiago <forteshiago@hotmail.com>",
+  "license": "MIT"
+}
