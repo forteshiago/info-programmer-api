@@ -1,6 +1,5 @@
 const express = require("express");
 const {uuid, isUuid} = require("uuidv4");
-const { request } = require("express");
 
 const app = express();
 
@@ -9,7 +8,7 @@ app.use(express.json());
 // --------------------------------------------------
 
 const progInfo = [{
-    id:"001", nome:"Luigi", sobrenome:"Bros.", idade:"30", empresa:"Nintendo", tecnologias:"react"
+    id:"001", nome:"Luigi", sobrenome:"Bros.", idade:"30", empresa:"Nintendo", tecnologias:["react", "python"]
 }];
 
 // --------------------------------------------------
@@ -19,6 +18,20 @@ function findYourIndex(idDev){
     const indexDev = progInfo.findIndex((eachDev) => eachDev.id == idDev);
     return indexDev;
 };
+
+function logRequests(req, res, next){
+
+    const {method, url} = req;
+    const logLabel = `[${method.toUpperCase()}] ${url}`;
+
+    console.time(logLabel);
+    next();
+    console.timeEnd(logLabel);
+};
+
+// --------------------------------------------------
+
+app.use(logRequests);
 
 // --------------------------------------------------
 
@@ -62,7 +75,7 @@ app.delete("/programmers/:id", (req, res) => {
     const masterIndex = findYourIndex(id);
 
     if(masterIndex < 0){
-        return response.status(400).json({error:"delete - Projeto nao encontrado!"});
+        return res.status(400).json({error:"delete - Projeto nao encontrado!"});
     };
 
     progInfo.splice(masterIndex, 1);
