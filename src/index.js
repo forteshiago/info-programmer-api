@@ -29,6 +29,15 @@ function logRequests(req, res, next){
     console.timeEnd(logLabel);
 };
 
+function validateDevId(req, res, next){
+    
+    const {id} = req.params;
+
+    if(!isUuid(id)){
+        return res.status(400).json({error: `Param sent is not a valid UUID`});
+    };
+    next();
+};
 // --------------------------------------------------
 
 app.use(logRequests);
@@ -49,7 +58,7 @@ app.post("/programmers", (req, res) => {
     return res.json(newDev);
 });
 
-app.put("/programmers/:id", (req, res) => {
+app.put("/programmers/:id", validateDevId, (req, res) => {
 
     const {id} = req.params;
 
@@ -68,7 +77,7 @@ app.put("/programmers/:id", (req, res) => {
     return res.json(updateDev);
 });
 
-app.delete("/programmers/:id", (req, res) => {
+app.delete("/programmers/:id", validateDevId, (req, res) => {
     
     const {id} = req.params;
 
