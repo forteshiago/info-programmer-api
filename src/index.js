@@ -46,7 +46,11 @@ app.use(logRequests);
 
 app.get("/programmers", (req, res) => {
 
-    return res.json(progInfo);
+    const { name } = req.query;
+
+    const yourFilter = name ? progInfo.filter((nameIn) => nameIn.nome.includes(name)) : progInfo; 
+
+    return res.json(yourFilter);
 });
 
 app.post("/programmers", (req, res) => {
@@ -93,10 +97,6 @@ app.delete("/programmers/:id", validateDevId, (req, res) => {
 });
 
 // --------------------------------------------------
-
-
-
-
 
 // --------------------------------------------------
 
