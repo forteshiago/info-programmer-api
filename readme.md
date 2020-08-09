@@ -1,7 +1,7 @@
 # info-programmer-api
 
 ## Basic Comunications: Node.js and ExpressJS
-### api básica para controle de caixa
+### api básica para armazenamento de dados de programadores
 
 _Projeto desenvolvido para fins educacionais!_
 
